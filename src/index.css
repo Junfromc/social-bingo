@@ -70,3 +70,25 @@ body {
   box-shadow: 0 0 15px rgba(15, 255, 80, 0.6);
   border-color: var(--color-accent-light);
 }
+
+/* Preview grid square styling */
+.preview-grid-square {
+  background-color: #111827; /* bg-gray-900 */
+  border: 1px solid var(--color-accent);
+  padding: 0.25rem;
+  font-size: 8px;
+  color: var(--color-accent);
+  text-align: center;
+  font-family: var(--font-mono);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 40px;
+}
+
+@media (min-width: 768px) {
+  .preview-grid-square {
+    font-size: 10px;
+    min-height: 50px;
+  }
+}

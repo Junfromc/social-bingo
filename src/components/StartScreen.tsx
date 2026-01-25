@@ -5,6 +5,10 @@ interface StartScreenProps {
   onStart: () => void;
 }
 
+// Constants for 5x5 grid layout
+const GRID_ITEMS_BEFORE_CENTER = 12; // First half of grid before center (0-11)
+const GRID_ITEMS_AFTER_CENTER = 12;  // Second half of grid after center (13-24)
+
 export function StartScreen({ onStart }: StartScreenProps) {
   const [showRules, setShowRules] = useState(false);
   
@@ -72,11 +76,8 @@ export function StartScreen({ onStart }: StartScreenProps) {
             </h2>
             <div className="bg-gray-900 border-2 border-accent p-4 shadow-lg shadow-accent/50">
               <div className="grid grid-cols-5 gap-1">
-                {previewGrid.slice(0, 12).map((question, idx) => (
-                  <div
-                    key={idx}
-                    className="bg-gray-900 border border-accent p-1 text-[8px] md:text-[10px] text-accent text-center font-mono flex items-center justify-center min-h-[40px] md:min-h-[50px]"
-                  >
+                {previewGrid.slice(0, GRID_ITEMS_BEFORE_CENTER).map((question, idx) => (
+                  <div key={idx} className="preview-grid-square">
                     {question}
                   </div>
                 ))}
@@ -84,11 +85,8 @@ export function StartScreen({ onStart }: StartScreenProps) {
                 <div className="bg-accent border border-accent p-1 text-[8px] md:text-[10px] text-gray-900 text-center font-mono font-bold flex items-center justify-center min-h-[40px] md:min-h-[50px]">
                   FREE
                 </div>
-                {previewGrid.slice(12, 24).map((question, idx) => (
-                  <div
-                    key={idx + 12}
-                    className="bg-gray-900 border border-accent p-1 text-[8px] md:text-[10px] text-accent text-center font-mono flex items-center justify-center min-h-[40px] md:min-h-[50px]"
-                  >
+                {previewGrid.slice(GRID_ITEMS_BEFORE_CENTER, GRID_ITEMS_BEFORE_CENTER + GRID_ITEMS_AFTER_CENTER).map((question, idx) => (
+                  <div key={idx + GRID_ITEMS_BEFORE_CENTER} className="preview-grid-square">
                     {question}
                   </div>
                 ))}
