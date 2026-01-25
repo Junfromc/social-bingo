@@ -1,4 +1,4 @@
-import { questions } from '../data/questions';
+import { questions, FREE_SPACE } from '../data/questions';
 
 interface StartScreenProps {
   onStart: () => void;
@@ -6,10 +6,15 @@ interface StartScreenProps {
 
 // Helper function to get a sample of questions for the preview grid
 function getSampleQuestions(): string[] {
-  const shuffled = [...questions].sort(() => Math.random() - 0.5);
+  // Fisher-Yates shuffle algorithm for proper randomization
+  const shuffled = [...questions];
+  for (let i = shuffled.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+  }
   const samples = shuffled.slice(0, 24);
   // Insert FREE SPACE at position 12 (center of 5x5 grid)
-  samples.splice(12, 0, 'FREE SPACE');
+  samples.splice(12, 0, FREE_SPACE);
   return samples;
 }
 
@@ -17,7 +22,7 @@ export function StartScreen({ onStart }: StartScreenProps) {
   const sampleGrid = getSampleQuestions();
 
   return (
-    <div className="relative flex flex-col items-center justify-start min-h-full p-6 bg-gray-900 overflow-auto">
+    <div className="relative flex flex-col items-center justify-start min-h-full p-6 bg-gray-900 overflow-y-auto">
       {/* Scanlines effect */}
       <div className="scanlines" />
       
