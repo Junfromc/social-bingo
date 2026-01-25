@@ -23,3 +23,39 @@ body {
   color: #0FFF50;
   text-shadow: 0 0 10px rgba(15, 255, 80, 0.5);
 }
+
+/* Glitch animation for retro arcade effect */
+@keyframes glitch {
+  0%, 100% {
+    transform: translate(0);
+    text-shadow: 0 0 10px rgba(15, 255, 80, 0.5);
+  }
+  10% {
+    transform: translate(-2px, 2px);
+    text-shadow: -2px 0 5px rgba(255, 0, 80, 0.7), 2px 0 5px rgba(0, 255, 255, 0.7);
+  }
+  20% {
+    transform: translate(2px, -2px);
+    text-shadow: 2px 0 5px rgba(255, 0, 80, 0.7), -2px 0 5px rgba(0, 255, 255, 0.7);
+  }
+  30% {
+    transform: translate(-2px, -2px);
+    text-shadow: -2px 0 5px rgba(0, 255, 255, 0.7), 2px 0 5px rgba(255, 0, 80, 0.7);
+  }
+  40% {
+    transform: translate(2px, 2px);
+    text-shadow: 2px 0 5px rgba(0, 255, 255, 0.7), -2px 0 5px rgba(255, 0, 80, 0.7);
+  }
+  50% {
+    transform: translate(0);
+    text-shadow: 0 0 10px rgba(15, 255, 80, 0.5);
+  }
+}
+
+.glitch-on-load {
+  animation: glitch 0.8s ease-in-out;
+}
+
+.glitch-on-hover:hover {
+  animation: glitch 0.6s ease-in-out;
+}
