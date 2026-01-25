@@ -5,22 +5,19 @@ interface StartScreenProps {
   onStart: () => void;
 }
 
+// Grid constants
+const GRID_SIZE = 25;
+const CENTER_POSITION = 12;
+const SAMPLE_QUESTION_COUNT = 8;
+
 // Generate a sample grid for preview
 function generateSampleGrid(): string[] {
-  const samples = [
-    questions[0], // "bikes to work"
-    questions[2], // "has a pet"
-    questions[4], // "plays an instrument"
-    questions[6], // "has run a marathon"
-    questions[10], // "has been skydiving"
-    questions[12], // "loves cooking"
-    questions[15], // "is left-handed"
-    questions[20], // "loves spicy food"
-  ];
+  // Take first 8 questions for consistent preview
+  const samples = questions.slice(0, SAMPLE_QUESTION_COUNT);
   
   const grid: string[] = [];
-  for (let i = 0; i < 25; i++) {
-    if (i === 12) {
+  for (let i = 0; i < GRID_SIZE; i++) {
+    if (i === CENTER_POSITION) {
       grid.push(FREE_SPACE);
     } else {
       grid.push(samples[i % samples.length]);
