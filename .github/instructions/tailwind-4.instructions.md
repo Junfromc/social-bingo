@@ -1,83 +1,73 @@
 ---
-description: Read before writing any Tailwind CSS to understand the latest v4 features.
+description: Essential Tailwind v4 practices for rapid frontend development. CSS-first config, modern features, zero setup.
 ---
 
-# Tailwind CSS v4 Development Practices
+# Tailwind CSS v4 Frontend Development
 
-## Core Philosophy
-- CSS-first configuration via `@theme` directive (no `tailwind.config.js`)
-- Native CSS features: cascade layers, `@property`, `color-mix()`, logical properties
-- Automatic content detection
-
-## Setup
+## Setup (One Line)
 ```css
-@import "tailwindcss";
+@import "tailwindcss";  /* everything else is automatic */
 ```
+- Zero configuration needed (content auto-detected, ignores `.gitignore`)
+- PostCSS or Vite plugin (`@tailwindcss/vite` for best performance)
+- Built-in `@import` support; no extra tooling
 
-## @theme Configuration
-
-### Define Tokens
+## CSS-First Configuration
+Define design tokens directly in CSS (no `tailwind.config.js`):
 ```css
 @theme {
-  --color-brand: oklch(0.72 0.11 178);
-  --font-display: "Inter", sans-serif;
-  --breakpoint-tablet: 640px;
+  --color-brand: oklch(0.72 0.11 178);        /* available as bg-brand */
+  --font-display: "Inter", sans-serif;         /* available as font-display */
+  --spacing-xs: 0.25rem;                       /* used in dynamic scales */
 }
 ```
-→ Use as: `bg-brand`, `font-display`
+- All `@theme` values auto-exposed as CSS custom properties at `:root`
+- Flat structure only (no nesting in `@media` or selectors)
+- Runtime themes: use `@theme inline { --color-primary: var(--primary); }`
 
-### Multi-theme Pattern
-```css
-@theme inline {
-  --color-primary: var(--primary);
-}
+## Modern Web Essentials
 
-:root { --primary: #3b82f6; }
-.dark { --primary: #60a5fa; }
-```
-Use `@theme inline` for runtime variable resolution.
+| Feature | Usage |
+|---------|-------|
+| **Native Opacity** | `bg-black/50`, `text-white/75` |
+| **Color Interpolation** | `bg-linear-to-r/oklch` (OKLCH default), `/srgb` for alt mode |
+| **3D Transforms** | `rotate-x-45`, `rotate-y-90`, `scale-z-150` |
+| **Container Queries** | `@container` + `@sm:`, `@md:`, `@max-md:` |
+| **Gradients** | `bg-linear-45`, `bg-radial-[at_25%_25%]`, `bg-conic-[in_hsl]` |
+| **New Variants** | `not-*`, `starting:`, `@starting-style` (enter/exit), `color-scheme:`, `inert:` |
+| **Dynamic Utils** | `grid-cols-15`, `mt-29`, `data-current:opacity-100` (no config needed) |
+| **Inset Shadows** | `inset-shadow-lg`, `inset-ring-2` (layer up to 4 shadows) |
 
-### Rules
-- Keep @theme variables flat (top-level only)
-- No nesting in @media or selectors
-- Use :root for non-Tailwind CSS variables
+## Color Palette
+- Upgraded to OKLCH (wider gamut, more vivid)
+- Maintains v3 feel; safe to upgrade existing projects
 
-## v4 Features
-
-### Native Opacity
-```html
-<div class="bg-black/50 text-brand/75">
-```
-
-### Container Queries
-```html
-<div class="@container">
-  <div class="@md:text-lg">
-</div>
-```
-
-### Arbitrary CSS Variables
-```html
-<div class="fill-[--my-color] w-[--sidebar-width]">
-```
-
-### New Utilities
-- 3D: `rotate-x-45`, `rotate-y-90`
-- Gradients: `bg-gradient-radial`, `bg-gradient-conic`
-- Variants: `not-*`, `color-scheme:*`, `@starting-style`
-
-## Migration
-
-### Renamed Classes
-- `bg-opacity-50` → `bg-black/50`
+## Key Migrations
+- `bg-opacity-50` → `bg-black/50` (use `/` for any color + opacity)
 - `overflow-ellipsis` → `text-ellipsis`
 - `shadow-sm` → `shadow-xs`
+- `bg-gradient-*` → `bg-linear-*` (linear gradients)
+- Remove `@tailwind` directives; use single `@import "tailwindcss"`
 
-## Best Practices
-1. Put design tokens in `@theme`
-2. Use `:root` for regular CSS variables
-3. Trust auto-detection
-4. Prefer `w-[--custom]` over complex config
+## Performance Wins
+- **3.78x** faster full builds
+- **8.8x** faster incremental builds
+- **100x+** faster incremental with no new CSS (microseconds)
 
-// Seed prompt
-// > Fill in a 1-pager copilot instructions (compact, minimal prose), targeted for frontend devs and focused on tailwind v4-specific development essentials; #web_search
+## Custom Utilities & Variants
+```css
+@layer utilities {
+  .card { @apply rounded-lg border shadow-sm; }
+}
+
+@layer variants {
+  .custom\:active { @media (prefers-active: yes) { & } }
+}
+```
+
+## Pro Tips
+1. Trust auto-detection; don't overthink `content` config
+2. Use `@source` in CSS to include excluded files: `@source "../node_modules/@company/ui-lib"`
+3. Reference theme values anywhere: `color: var(--color-brand)` in JS
+4. Arbitrary values for anything: `px-[12px]`, `w-[--custom-width]`, `text-[#f0f]`
+5. Stack container query variants: `@min-md:@max-xl:hidden`
