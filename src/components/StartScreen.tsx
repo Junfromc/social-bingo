@@ -35,44 +35,28 @@ export function StartScreen({ onStart }: StartScreenProps) {
             
             <div className="space-y-4">
               {/* Interactive Rule Cards */}
-              <div 
-                className="bg-gray-900 border-2 border-accent p-4 transition-all duration-300 hover:shadow-[0_0_15px_rgba(15,255,80,0.6)] hover:border-accent-light cursor-default"
-                onMouseEnter={(e) => e.currentTarget.style.transform = 'translateX(4px)'}
-                onMouseLeave={(e) => e.currentTarget.style.transform = 'translateX(0)'}
-              >
+              <div className="bg-gray-900 border-2 border-accent p-4 rule-card-hover cursor-default">
                 <h3 className="text-accent font-bold mb-2 font-mono">1. MINGLE &amp; MATCH</h3>
                 <p className="text-accent/80 text-sm font-mono">
                   Walk around and find people who match the traits on your bingo board
                 </p>
               </div>
 
-              <div 
-                className="bg-gray-900 border-2 border-accent p-4 transition-all duration-300 hover:shadow-[0_0_15px_rgba(15,255,80,0.6)] hover:border-accent-light cursor-default"
-                onMouseEnter={(e) => e.currentTarget.style.transform = 'translateX(4px)'}
-                onMouseLeave={(e) => e.currentTarget.style.transform = 'translateX(0)'}
-              >
+              <div className="bg-gray-900 border-2 border-accent p-4 rule-card-hover cursor-default">
                 <h3 className="text-accent font-bold mb-2 font-mono">2. TAP TO MARK</h3>
                 <p className="text-accent/80 text-sm font-mono">
                   When you find a match, tap the square to mark it green
                 </p>
               </div>
 
-              <div 
-                className="bg-gray-900 border-2 border-accent p-4 transition-all duration-300 hover:shadow-[0_0_15px_rgba(15,255,80,0.6)] hover:border-accent-light cursor-default"
-                onMouseEnter={(e) => e.currentTarget.style.transform = 'translateX(4px)'}
-                onMouseLeave={(e) => e.currentTarget.style.transform = 'translateX(0)'}
-              >
+              <div className="bg-gray-900 border-2 border-accent p-4 rule-card-hover cursor-default">
                 <h3 className="text-accent font-bold mb-2 font-mono">3. GET 5 IN A ROW</h3>
                 <p className="text-accent/80 text-sm font-mono">
                   Complete any row, column, or diagonal to achieve BINGO and win!
                 </p>
               </div>
 
-              <div 
-                className="bg-gray-900 border-2 border-accent p-4 transition-all duration-300 hover:shadow-[0_0_15px_rgba(15,255,80,0.6)] hover:border-accent-light cursor-default"
-                onMouseEnter={(e) => e.currentTarget.style.transform = 'translateX(4px)'}
-                onMouseLeave={(e) => e.currentTarget.style.transform = 'translateX(0)'}
-              >
+              <div className="bg-gray-900 border-2 border-accent p-4 rule-card-hover cursor-default">
                 <h3 className="text-accent font-bold mb-2 font-mono">4. CENTER IS FREE</h3>
                 <p className="text-accent/80 text-sm font-mono">
                   The center square starts marked - it's your free space!
