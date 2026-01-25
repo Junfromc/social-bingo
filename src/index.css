@@ -23,3 +23,50 @@ body {
   color: #0FFF50;
   text-shadow: 0 0 10px rgba(15, 255, 80, 0.5);
 }
+
+/* Animation keyframes for landing page */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes glowReveal {
+  from {
+    opacity: 0;
+    box-shadow: 0 0 0 rgba(15, 255, 80, 0);
+  }
+  to {
+    opacity: 1;
+    box-shadow: 0 0 10px rgba(15, 255, 80, 0.5);
+  }
+}
+
+@keyframes gridCellReveal {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Animation utility classes */
+.animate-fade-in {
+  animation: fadeIn 0.8s ease-out forwards;
+}
+
+.animate-glow-reveal {
+  animation: glowReveal 0.6s ease-out forwards;
+}
+
+.animate-grid-cell {
+  animation: gridCellReveal 0.4s ease-out forwards;
+}
