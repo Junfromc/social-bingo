@@ -12,7 +12,8 @@ const GRID_ITEMS_AFTER_CENTER = 12;  // Second half of grid after center (13-24)
 export function StartScreen({ onStart }: StartScreenProps) {
   const [showRules, setShowRules] = useState(false);
   
-  // Sample 5x5 grid for preview (using first 24 questions + free space)
+  // Sample 5x5 grid for preview (using first 24 questions + free space at center)
+  // The questions array contains 25+ items, so slice(0, 24) is safe
   const previewGrid = questions.slice(0, 24);
   
   return (
