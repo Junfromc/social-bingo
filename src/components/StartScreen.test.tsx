@@ -107,10 +107,10 @@ describe('StartScreen', () => {
     render(<StartScreen onStart={onStart} />);
     
     // Check for some sample questions (they appear multiple times in the grid)
-    const bikeElements = screen.getAllByText(/bikes to work/i);
-    expect(bikeElements.length).toBeGreaterThan(0);
+    const musicElements = screen.getAllByText(/has a favorite music genre/i);
+    expect(musicElements.length).toBeGreaterThan(0);
     
-    const petElements = screen.getAllByText(/has a pet/i);
-    expect(petElements.length).toBeGreaterThan(0);
+    const instrumentElements = screen.getAllByText(/plays an instrument/i);
+    expect(instrumentElements.length).toBeGreaterThan(0);
   });
 });
