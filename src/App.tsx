@@ -1,6 +1,7 @@
 import { useBingoGame } from './hooks/useBingoGame';
 import { StartScreen } from './components/StartScreen';
 import { GameScreen } from './components/GameScreen';
+import { HuntScreen } from './components/HuntScreen';
 import { BingoModal } from './components/BingoModal';
 
 function App() {
@@ -9,14 +10,31 @@ function App() {
     board,
     winningSquareIds,
     showBingoModal,
+    huntItems,
     startGame,
     handleSquareClick,
+    handleHuntItemToggle,
     resetGame,
     dismissModal,
   } = useBingoGame();
 
   if (gameState === 'start') {
     return <StartScreen onStart={startGame} />;
+  }
+
+  if (gameState === 'hunt-playing' || gameState === 'hunt-complete') {
+    return (
+      <>
+        <HuntScreen
+          huntItems={huntItems}
+          onItemToggle={handleHuntItemToggle}
+          onBack={resetGame}
+        />
+        {showBingoModal && (
+          <BingoModal onDismiss={dismissModal} />
+        )}
+      </>
+    );
   }
 
   return (

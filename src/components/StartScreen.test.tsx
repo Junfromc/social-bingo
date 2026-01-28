@@ -40,11 +40,18 @@ describe('StartScreen', () => {
     expect(screen.getByText('Get Bingo')).toBeInTheDocument();
   });
 
-  it('should render START GAME button', () => {
+  it('should render PLAY BINGO button', () => {
     const onStart = vi.fn();
     render(<StartScreen onStart={onStart} />);
     
-    expect(screen.getByText('[ START GAME ]')).toBeInTheDocument();
+    expect(screen.getByText('[ PLAY BINGO ]')).toBeInTheDocument();
+  });
+
+  it('should render SCAVENGER HUNT button', () => {
+    const onStart = vi.fn();
+    render(<StartScreen onStart={onStart} />);
+    
+    expect(screen.getByText('[ SCAVENGER HUNT ]')).toBeInTheDocument();
   });
 
   it('should render LEARN MORE button', () => {
@@ -54,14 +61,24 @@ describe('StartScreen', () => {
     expect(screen.getByText('[ LEARN MORE ]')).toBeInTheDocument();
   });
 
-  it('should call onStart when START GAME button is clicked', () => {
+  it('should call onStart with bingo mode when PLAY BINGO button is clicked', () => {
     const onStart = vi.fn();
     render(<StartScreen onStart={onStart} />);
     
-    const startButton = screen.getByText('[ START GAME ]');
-    fireEvent.click(startButton);
+    const bingoButton = screen.getByText('[ PLAY BINGO ]');
+    fireEvent.click(bingoButton);
     
-    expect(onStart).toHaveBeenCalledTimes(1);
+    expect(onStart).toHaveBeenCalledWith('bingo');
+  });
+
+  it('should call onStart with hunt mode when SCAVENGER HUNT button is clicked', () => {
+    const onStart = vi.fn();
+    render(<StartScreen onStart={onStart} />);
+    
+    const huntButton = screen.getByText('[ SCAVENGER HUNT ]');
+    fireEvent.click(huntButton);
+    
+    expect(onStart).toHaveBeenCalledWith('hunt');
   });
 
   it('should toggle detailed rules when LEARN MORE is clicked', () => {

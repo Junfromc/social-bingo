@@ -1,8 +1,8 @@
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
 import { questions, FREE_SPACE } from '../data/questions';
 
 interface StartScreenProps {
-  onStart: () => void;
+  onStart: (mode?: 'bingo' | 'hunt') => void;
 }
 
 // Grid constants
@@ -10,11 +10,19 @@ const GRID_SIZE = 25;
 const CENTER_POSITION = 12;
 const SAMPLE_QUESTION_COUNT = 8;
 
-// Generate a sample grid for preview
+// Button styling constants
+const PRIMARY_BUTTON_CLASS =
+  'flex-1 sm:flex-none bg-accent text-gray-900 font-semibold py-4 px-8 text-base sm:text-lg active:bg-accent-light transition-colors font-mono border-2 border-accent shadow-lg shadow-accent/50 hover:shadow-[0_0_20px_rgba(15,255,80,0.8)]';
+
+const SECONDARY_BUTTON_CLASS =
+  'flex-1 sm:flex-none bg-transparent text-accent font-semibold py-4 px-8 text-base sm:text-lg transition-colors font-mono border-2 border-accent hover:bg-accent/10 hover:shadow-[0_0_15px_rgba(15,255,80,0.5)]';
+
+/**
+ * Generate a sample grid for preview showing the first 8 questions
+ */
 function generateSampleGrid(): string[] {
-  // Take first 8 questions for consistent preview
   const samples = questions.slice(0, SAMPLE_QUESTION_COUNT);
-  
+
   const grid: string[] = [];
   for (let i = 0; i < GRID_SIZE; i++) {
     if (i === CENTER_POSITION) {
@@ -26,9 +34,12 @@ function generateSampleGrid(): string[] {
   return grid;
 }
 
+/**
+ * StartScreen component - displays game intro, rules, and mode selection
+ */
 export function StartScreen({ onStart }: StartScreenProps) {
   const [showRules, setShowRules] = useState(false);
-  const sampleGrid = generateSampleGrid();
+  const sampleGrid = useMemo(() => generateSampleGrid(), []);
 
   return (
     <div className="min-h-full overflow-y-auto bg-gray-900">
@@ -56,7 +67,7 @@ export function StartScreen({ onStart }: StartScreenProps) {
               </h2>
               <div className="bg-gray-900 border-2 border-accent p-4 shadow-lg shadow-accent/50">
                 <div className="grid grid-cols-5 gap-1">
-                  {sampleGrid.map((question, index) => (
+                  {sampleGrid.map((question: string, index: number) => (
                     <div
                       key={index}
                       className="bg-gray-900 border border-accent aspect-square flex items-center justify-center p-1 text-[6px] sm:text-[8px] text-accent text-center leading-tight animate-grid-cell"
@@ -133,14 +144,20 @@ export function StartScreen({ onStart }: StartScreenProps) {
           {/* Call-to-Action Buttons */}
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-stretch sm:items-center animate-fade-in" style={{ animationDelay: '0.8s', opacity: 0 }}>
             <button
-              onClick={onStart}
-              className="flex-1 sm:flex-none bg-accent text-gray-900 font-semibold py-4 px-8 text-base sm:text-lg active:bg-accent-light transition-colors font-mono border-2 border-accent shadow-lg shadow-accent/50 hover:shadow-[0_0_20px_rgba(15,255,80,0.8)]"
+              onClick={() => onStart('bingo')}
+              className={PRIMARY_BUTTON_CLASS}
             >
-              [ START GAME ]
+              [ PLAY BINGO ]
+            </button>
+            <button
+              onClick={() => onStart('hunt')}
+              className={SECONDARY_BUTTON_CLASS}
+            >
+              [ SCAVENGER HUNT ]
             </button>
             <button
               onClick={() => setShowRules(!showRules)}
-              className="flex-1 sm:flex-none bg-transparent text-accent font-semibold py-4 px-8 text-base sm:text-lg transition-colors font-mono border-2 border-accent hover:bg-accent/10 hover:shadow-[0_0_15px_rgba(15,255,80,0.5)]"
+              className={SECONDARY_BUTTON_CLASS}
             >
               [ {showRules ? 'HIDE' : 'LEARN MORE'} ]
             </button>

@@ -1,7 +1,7 @@
 ---
 name: TDD Supervisor
 description: Orchestrate full TDD cycle from request to implementation
-tools: ['agent']
+tools: ['vscode', 'execute', 'read', 'edit', 'search', 'web', 'github/*', 'playwright/*', 'agent', 'github.vscode-pull-request-github/copilotCodingAgent', 'github.vscode-pull-request-github/issue_fetch', 'github.vscode-pull-request-github/suggest-fix', 'github.vscode-pull-request-github/searchSyntax', 'github.vscode-pull-request-github/doSearch', 'github.vscode-pull-request-github/renderIssues', 'github.vscode-pull-request-github/activePullRequest', 'github.vscode-pull-request-github/openPullRequest', 'todo']
 ---
 
 Your goal is take high-level user instructions (feature, spec, bug fix) to orchestrate the TDD cycle:

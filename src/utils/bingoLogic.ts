@@ -9,6 +9,9 @@ const CENTER_INDEX = 12; // 5x5 grid, center is index 12 (row 2, col 2)
 
 /**
  * Shuffle an array using Fisher-Yates algorithm
+ * @template T - The type of array elements
+ * @param array - The array to shuffle
+ * @returns A new shuffled array without modifying the original
  */
 function shuffleArray<T>(array: T[]): T[] {
   const shuffled = [...array];
@@ -20,7 +23,9 @@ function shuffleArray<T>(array: T[]): T[] {
 }
 
 /**
- * Generate a new 5x5 bingo board
+ * Generate a new 5x5 bingo board with randomized questions
+ * Center square is always FREE_SPACE and marked
+ * @returns Array of 25 BingoSquareData objects
  */
 export function generateBoard(): BingoSquareData[] {
   const shuffledQuestions = shuffleArray(questions).slice(0, 24);
@@ -50,7 +55,11 @@ export function generateBoard(): BingoSquareData[] {
 }
 
 /**
- * Toggle a square's marked state
+ * Toggle a square's marked state (except FREE_SPACE which cannot be unmarked)
+ * Returns a new array without mutating the original
+ * @param board - The current bingo board
+ * @param squareId - The ID of the square to toggle
+ * @returns A new board array with the square toggled
  */
 export function toggleSquare(board: BingoSquareData[], squareId: number): BingoSquareData[] {
   return board.map((square) =>
@@ -61,7 +70,9 @@ export function toggleSquare(board: BingoSquareData[], squareId: number): BingoS
 }
 
 /**
- * Get all possible winning lines
+ * Get all possible winning lines on a 5x5 bingo board
+ * Includes 5 rows, 5 columns, and 2 diagonals
+ * @returns Array of all possible winning BingoLine objects
  */
 function getWinningLines(): BingoLine[] {
   const lines: BingoLine[] = [];
@@ -102,7 +113,10 @@ function getWinningLines(): BingoLine[] {
 }
 
 /**
- * Check if there's a bingo and return the winning line(s)
+ * Check if there's a bingo on the board
+ * Returns the first winning line found, or null if no bingo yet
+ * @param board - The current bingo board
+ * @returns The winning BingoLine if found, null otherwise
  */
 export function checkBingo(board: BingoSquareData[]): BingoLine | null {
   const lines = getWinningLines();
@@ -119,6 +133,8 @@ export function checkBingo(board: BingoSquareData[]): BingoLine | null {
 
 /**
  * Get the square IDs that are part of a winning line
+ * @param line - The BingoLine to extract square IDs from
+ * @returns Set of square IDs, or empty set if line is null
  */
 export function getWinningSquareIds(line: BingoLine | null): Set<number> {
   if (!line) return new Set();
