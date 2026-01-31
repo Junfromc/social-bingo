@@ -1,14 +1,6 @@
 import type { BingoSquareData } from '../types';
 import { BingoBoard } from './BingoBoard';
 
-/**
- * Props for the GameScreen component
- * @property board - Array of bingo squares
- * @property winningSquareIds - Set of square IDs that are part of winning line
- * @property hasBingo - Whether a bingo has been achieved
- * @property onSquareClick - Callback when a square is clicked
- * @property onReset - Callback to reset game
- */
 interface GameScreenProps {
   board: BingoSquareData[];
   winningSquareIds: Set<number>;
@@ -17,10 +9,6 @@ interface GameScreenProps {
   onReset: () => void;
 }
 
-/**
- * Game screen component for bingo mode
- * Displays the 5x5 bingo board with controls
- */
 export function GameScreen({
   board,
   winningSquareIds,
